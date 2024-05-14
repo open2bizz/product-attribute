@@ -27,11 +27,21 @@
                 <attribute name="decoration-info">not active</attribute>
             </tree>
             <tree position="inside">
-                <field name="active" widget="boolean_toggle" />
+                <field name="active" widget="boolean_toggle" optional="hide"/>
             </tree>
         </field>
     </record>
-    <record id="product.product_category_action_form" model="ir.actions.act_window">
-        <field name="context">{"active_test": False}</field>
+
+    <record id="product_category_search_view" model="ir.ui.view">
+        <field name="name">product_category_search_view</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+            </xpath>
+        </field>
     </record>
+
 </odoo>
